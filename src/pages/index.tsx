@@ -1,11 +1,10 @@
-import { lazy, Suspense, useEffect, useRef, useState } from "react";
+import { lazy, Suspense } from "react";
 import { motion } from "framer-motion";
 
 import { title, subtitle } from "@/components/primitives";
 import DefaultLayout from "@/layouts/default";
 import { ContactButton } from "@/components/contact-button";
 
-// Lazy-load heavy homepage sections to keep first paint lighter.
 const ASCIIAnimation = lazy(() => import("@/components/ascii"));
 const Cards = lazy(() => import("@/components/cards"));
 const Pricing = lazy(() => import("@/components/pricing"));
@@ -28,40 +27,6 @@ const childVariants = {
 };
 
 export default function IndexPage() {
-  const [showHeroAnimation, setShowHeroAnimation] = useState(false);
-  const [showLowerSections, setShowLowerSections] = useState(false);
-  const lowerSectionsRef = useRef<HTMLDivElement | null>(null);
-
-  useEffect(() => {
-    // Defer non-critical hero animation work until after initial paint.
-    const timerId = window.setTimeout(() => {
-      setShowHeroAnimation(true);
-      void import("@/components/ascii");
-      void import("@/components/cards");
-      void import("@/components/pricing");
-    }, 250);
-
-    return () => window.clearTimeout(timerId);
-  }, []);
-
-  useEffect(() => {
-    if (!lowerSectionsRef.current || showLowerSections) return;
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setShowLowerSections(true);
-          observer.disconnect();
-        }
-      },
-      { rootMargin: "300px 0px" },
-    );
-
-    observer.observe(lowerSectionsRef.current);
-
-    return () => observer.disconnect();
-  }, [showLowerSections]);
-
   return (
     <DefaultLayout>
       <motion.header
@@ -96,37 +61,27 @@ export default function IndexPage() {
             <div className="w-full h-full animate-pulse rounded-lg bg-default-100" />
           }
         >
-          {showHeroAnimation ? (
-            <ASCIIAnimation
-              className="w-full h-full"
-              fps={20}
-              frameCount={300}
-              frameFolder="animation/planet"
-              lazy={true}
-              quality="high"
-            />
-          ) : (
-            <div className="w-full h-full animate-pulse rounded-lg bg-default-100" />
-          )}
+          <ASCIIAnimation
+            className="w-full h-full"
+            fps={20}
+            frameCount={300}
+            frameFolder="animation/planet"
+            lazy={true}
+            quality="high"
+          />
         </Suspense>
       </motion.div>
 
-      <div ref={lowerSectionsRef} className="w-full min-h-[420px]">
-        {showLowerSections ? (
-          <motion.div key={4} variants={childVariants}>
-            <Suspense
-              fallback={
-                <div className="w-full py-12 bg-default-50 animate-pulse" />
-              }
-            >
-              <Cards />
-              <Pricing />
-            </Suspense>
-          </motion.div>
-        ) : (
-          <div className="w-full py-12 bg-default-50 animate-pulse" />
-        )}
-      </div>
+      <motion.div key={4} variants={childVariants}>
+        <Suspense
+          fallback={
+            <div className="w-full py-12 bg-default-50 animate-pulse" />
+          }
+        >
+          <Cards />
+          <Pricing />
+        </Suspense>
+      </motion.div>
     </DefaultLayout>
   );
 }
