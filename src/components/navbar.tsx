@@ -196,7 +196,7 @@ export const Navbar = ({ maxWidth = "xl", className }: NavbarProps) => {
           >
             <div className="flex items-center h-14 sm:h-16">
               {/* Logo — left */}
-              <NavbarBrand className="flex-none flex items-center gap-3 ml-auto w-[180px] justify-start">
+              <NavbarBrand className="flex gap-3 ml-auto sm:w-[180px] w-full justify-start">
                 <Link
                   disableActiveStyle
                   className="flex items-center gap-1"
@@ -227,7 +227,7 @@ export const Navbar = ({ maxWidth = "xl", className }: NavbarProps) => {
               </div>
 
               {/* Actions — right */}
-              <div className="flex-none flex items-center gap-3 ml-auto w-[180px]  justify-end">
+              <div className="flex-none flex items-center gap-3 ml-auto sm:w-[180px]   justify-end">
                 <ThemeSwitch />
                 <div className="hidden sm:block">
                   <ContactButton variant="nav" />
