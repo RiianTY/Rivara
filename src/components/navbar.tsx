@@ -196,7 +196,7 @@ export const Navbar = ({ maxWidth = "xl", className }: NavbarProps) => {
           >
             <div className="flex items-center h-14 sm:h-16">
               {/* Logo — left */}
-              <NavbarBrand className="flex-none">
+              <NavbarBrand className="flex-none flex items-center gap-3 ml-auto w-[180px] justify-start">
                 <Link
                   disableActiveStyle
                   className="flex items-center gap-1"
@@ -209,7 +209,7 @@ export const Navbar = ({ maxWidth = "xl", className }: NavbarProps) => {
               </NavbarBrand>
 
               {/* Links — center */}
-              <div className="hidden sm:flex flex-1 justify-center gap-4">
+              <div className="hidden sm:flex flex-1 justify-center gap-8">
                 {siteConfig.navItems.map((item) => (
                   <NavbarItem key={item.href}>
                     <Link
@@ -227,7 +227,7 @@ export const Navbar = ({ maxWidth = "xl", className }: NavbarProps) => {
               </div>
 
               {/* Actions — right */}
-              <div className="flex-none flex items-center gap-3 ml-auto">
+              <div className="flex-none flex items-center gap-3 ml-auto w-[180px]  justify-end">
                 <ThemeSwitch />
                 <div className="hidden sm:block">
                   <ContactButton variant="nav" />
