@@ -13,12 +13,6 @@ interface NavbarProps {
   className?: string;
 }
 
-interface NavbarContentProps {
-  className?: string;
-  justify?: "start" | "center" | "end";
-  children: React.ReactNode;
-}
-
 interface NavbarItemProps {
   className?: string;
   children: React.ReactNode;
@@ -37,24 +31,6 @@ interface NavbarMenuProps {
 interface NavbarMenuItemProps {
   children: React.ReactNode;
 }
-
-const NavbarContent = ({
-  className,
-  justify = "start",
-  children,
-}: NavbarContentProps) => {
-  const justifyClass = {
-    start: "justify-start",
-    center: "justify-center",
-    end: "justify-end",
-  }[justify];
-
-  return (
-    <div className={clsx("flex items-center gap-2", justifyClass, className)}>
-      {children}
-    </div>
-  );
-};
 
 const NavbarItem = ({ className, children }: NavbarItemProps) => {
   return <div className={clsx("flex items-center", className)}>{children}</div>;
