@@ -1,12 +1,7 @@
-import { motion } from "framer-motion";
 import clsx from "clsx";
 import { useTheme } from "next-themes";
 
 import { Link } from "@/components/link";
-const childVariants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, transition: { duration: 0.1 } },
-};
 
 const contactHref = "/contact";
 
@@ -59,12 +54,8 @@ export function ContactButton({
   }
 
   return (
-    <motion.div
-      key={3}
-      className="flex justify-center w-full mt-[10px] pb-10 md:pb-0"
-      variants={childVariants}
-    >
+    <div className="flex justify-center w-full mt-[10px] pb-10 md:pb-0">
       <Link to={contactHref}>{button}</Link>
-    </motion.div>
+    </div>
   );
 }

@@ -3,13 +3,11 @@ import { motion } from "framer-motion";
 
 import { title, subtitle } from "@/components/primitives";
 import DefaultLayout from "@/layouts/default";
-import ASCIIAnimation from "@/components/ascii";
 import { ContactButton } from "@/components/contact-button";
-import Pricing from "@/components/pricing";
 
-// Lazy load heavy components to reduce initial bundle size
-// const WebsitePreview = lazy(() => import("@/components/website-preview"));
+const ASCIIAnimation = lazy(() => import("@/components/ascii"));
 const Cards = lazy(() => import("@/components/cards"));
+const Pricing = lazy(() => import("@/components/pricing"));
 
 const variants = {
   hidden: { opacity: 0 },
