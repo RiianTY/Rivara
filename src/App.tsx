@@ -5,6 +5,7 @@ import { Route, Routes } from "react-router-dom";
 const IndexPage = lazy(() => import("@/pages/index"));
 const ContactForm = lazy(() => import("@/pages/contact"));
 const AboutPage = lazy(() => import("@/pages/about"));
+const ProjectsPage = lazy(() => import("@/pages/projects"));
 
 // Simple loading fallback
 const PageLoader = () => (
@@ -20,6 +21,7 @@ function App() {
         <Route element={<IndexPage />} path="/" />
         <Route element={<ContactForm />} path="/contact" />
         <Route element={<AboutPage />} path="/about" />
+        <Route element={<ProjectsPage />} path="/projects" />
       </Routes>
     </Suspense>
   );

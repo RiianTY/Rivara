@@ -195,6 +195,51 @@ form > .required:after {
   animation: pricing-glow 3s ease-in-out infinite;
 }
 
+@keyframes contact-border-move {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 200% 50%;
+  }
+}
+
+.contact-glow-base {
+  position: absolute;
+  inset: -3px;
+  border-radius: 9999px;
+  filter: blur(4px);
+  opacity: 0.5;
+  pointer-events: none;
+  background-size: 200% 200%;
+  animation: contact-border-move 3s linear infinite;
+  transition: inset 0.3s ease-out, opacity 0.3s ease-out, filter 0.3s ease-out;
+}
+
+.group:hover .contact-glow-base {
+  inset: -6px;
+  opacity: 0.85;
+  filter: blur(7px);
+}
+
+.contact-glow-dark {
+  background-image: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.08),
+    rgba(255, 255, 255, 0.9),
+    rgba(255, 255, 255, 0.08)
+  );
+}
+
+.contact-glow-light {
+  background-image: linear-gradient(
+    90deg,
+    rgba(0, 0, 0, 0.08),
+    rgba(0, 0, 0, 0.9),
+    rgba(0, 0, 0, 0.08)
+  );
+}
+
 /* home page styles end */
 
 .toaster {
