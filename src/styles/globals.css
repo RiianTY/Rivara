@@ -184,6 +184,16 @@ form > .required:after {
 
 /* contact styles end */
 
+/* hero entrance — transform-only so LCP is not blocked by opacity:0 */
+@keyframes hero-slide {
+  from { transform: translateY(16px); }
+  to { transform: translateY(0); }
+}
+
+.animate-hero-slide {
+  animation: hero-slide 0.4s ease-out both;
+}
+
 /* home page styles start */
 
 @keyframes pricing-glow {

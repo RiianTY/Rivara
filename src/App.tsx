@@ -1,8 +1,8 @@
 import { lazy, Suspense } from "react";
 import { Route, Routes } from "react-router-dom";
 
-// Lazy load routes to reduce initial bundle size
-const IndexPage = lazy(() => import("@/pages/index"));
+import IndexPage from "@/pages/index";
+
 const ContactForm = lazy(() => import("@/pages/contact"));
 const AboutPage = lazy(() => import("@/pages/about"));
 const ProjectsPage = lazy(() => import("@/pages/projects"));
