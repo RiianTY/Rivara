@@ -4,7 +4,12 @@
     <link href="/LogoBlack.png" rel="icon" />
     <link rel="preload" href="/LogoWhite.png" as="image" />
     <link rel="preload" href="/LogoBlack.png" as="image" />
-    <link rel="preload" href="/animation/planet/high/frame_00001.txt" as="fetch" crossorigin />
+    <link
+      rel="preload"
+      href="/animation/planet/high/frame_00001.txt"
+      as="fetch"
+      crossorigin
+    />
     <title>Rivara: Web solutions for everyone</title>
     <meta
       key="title"
@@ -28,45 +33,105 @@
     />
     <meta name="author" content="Rivara" />
     <meta name="robots" content="index, follow" />
-    <meta
-      name="google-site-verification"
-      content="OZRu8L3IuA-wkfIlXi8bRP4wT5KwsHhnA2u1NLBfYk8"
-    />
-    <script>try{var t=localStorage.getItem("theme");if(t==="dark"||(!t||t==="system")&&matchMedia("(prefers-color-scheme:dark)").matches)document.documentElement.classList.add("dark")}catch(e){}</script>
+    <script>
+      try {
+        var t = localStorage.getItem("theme");
+        if (
+          t === "dark" ||
+          ((!t || t === "system") &&
+            matchMedia("(prefers-color-scheme:dark)").matches)
+        )
+          document.documentElement.classList.add("dark");
+      } catch (e) {}
+    </script>
     <style id="shell-css">
-      :root{--_bg:0 0% 100%;--_fg:0 0% 3.9%;--_sub:0 0% 32.2%}
-      .dark{--_bg:0 0% 0%;--_fg:0 0% 98%;--_sub:0 0% 83.1%}
-      #shell{display:flex;flex-direction:column;min-height:100vh;background:hsl(var(--_bg));color:hsl(var(--_fg))}
+      :root {
+        --_bg: 0 0% 100%;
+        --_fg: 0 0% 3.9%;
+        --_sub: 0 0% 32.2%;
+      }
+      .dark {
+        --_bg: 0 0% 0%;
+        --_fg: 0 0% 98%;
+        --_sub: 0 0% 83.1%;
+      }
+      #shell {
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+        background: hsl(var(--_bg));
+        color: hsl(var(--_fg));
+      }
     </style>
   </head>
   <body>
     <div id="root">
       <div id="shell">
-        <div style="height:5rem"></div>
-        <main style="margin:0 auto;max-width:80rem;padding:0 2rem;flex-grow:1">
-          <header style="display:flex;flex-direction:column;align-items:center;margin-top:8rem">
-            <div style="display:inline-block;max-width:28rem;text-align:center">
-              <h1 style="letter-spacing:-.025em;display:inline;font-weight:600;font-size:2.3rem;line-height:2.25rem">Welcome to&nbsp;<span style="background:linear-gradient(to bottom,#00b7fa,#01cfea);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;letter-spacing:-.025em;display:inline;font-weight:600;font-size:2.3rem;line-height:2.25rem">Rivara&nbsp;</span><br>Web solutions for everyone</h1>
-              <h2 style="width:100%;margin:.5rem 0;font-size:1.125rem;color:hsl(var(--_sub));display:block;margin-top:1rem">Modernising your business made easy</h2>
+        <div style="height: 5rem"></div>
+        <main
+          style="
+            margin: 0 auto;
+            max-width: 80rem;
+            padding: 0 2rem;
+            flex-grow: 1;
+          "
+        >
+          <header
+            style="
+              display: flex;
+              flex-direction: column;
+              align-items: center;
+              margin-top: 8rem;
+            "
+          >
+            <div
+              style="
+                display: inline-block;
+                max-width: 28rem;
+                text-align: center;
+              "
+            >
+              <h1
+                style="
+                  letter-spacing: -0.025em;
+                  display: inline;
+                  font-weight: 600;
+                  font-size: 2.3rem;
+                  line-height: 2.25rem;
+                "
+              >
+                Welcome to&nbsp;<span
+                  style="
+                    background: linear-gradient(to bottom, #00b7fa, #01cfea);
+                    -webkit-background-clip: text;
+                    -webkit-text-fill-color: transparent;
+                    background-clip: text;
+                    letter-spacing: -0.025em;
+                    display: inline;
+                    font-weight: 600;
+                    font-size: 2.3rem;
+                    line-height: 2.25rem;
+                  "
+                  >Rivara&nbsp;</span
+                ><br />Web solutions for everyone
+              </h1>
+              <h2
+                style="
+                  width: 100%;
+                  margin: 0.5rem 0;
+                  font-size: 1.125rem;
+                  color: hsl(var(--_sub));
+                  display: block;
+                  margin-top: 1rem;
+                "
+              >
+                Modernising your business made easy
+              </h2>
             </div>
           </header>
         </main>
       </div>
     </div>
     <script type="module" src="/src/main.tsx"></script>
-    <script>
-      window.addEventListener("load", function () {
-        var s = document.createElement("script");
-        s.async = true;
-        s.src = "https://www.googletagmanager.com/gtag/js?id=G-H1WYVK1CYH";
-        document.head.appendChild(s);
-        s.onload = function () {
-          window.dataLayer = window.dataLayer || [];
-          function gtag() { dataLayer.push(arguments); }
-          gtag("js", new Date());
-          gtag("config", "G-H1WYVK1CYH");
-        };
-      });
-    </script>
   </body>
 </html>
