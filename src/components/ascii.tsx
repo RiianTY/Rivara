@@ -62,13 +62,17 @@ const FALLBACK_ORDER: Record<Quality, Quality[]> = {
 /**
  * Resolves the base URL for frame files by probing quality subfolders
  * and falling back to a flat folder structure.
- * Returns { baseUrl, isFlat } or null if nothing was found.
+ * Returns the base URL and the first frame content (so we don't fetch it twice).
  */
 async function resolveFrameSource(
   frameFolder: string,
   quality: Quality,
   firstFrameFile: string,
-): Promise<{ baseUrl: string; isFlat: boolean } | null> {
+): Promise<{
+  baseUrl: string;
+  isFlat: boolean;
+  firstFrameContent: string;
+} | null> {
   const fallbackQualities = FALLBACK_ORDER[quality];
 
   for (const candidate of fallbackQualities) {
@@ -83,7 +87,13 @@ async function resolveFrameSource(
           );
         }
 
-        return { baseUrl: `/${frameFolder}/${candidate}`, isFlat: false };
+        const firstFrameContent = await probeResponse.text();
+
+        return {
+          baseUrl: `/${frameFolder}/${candidate}`,
+          isFlat: false,
+          firstFrameContent,
+        };
       }
     } catch {
       // continue to next candidate
@@ -99,7 +109,13 @@ async function resolveFrameSource(
         `ASCIIAnimation: no quality subfolders found in "${frameFolder}", using flat folder structure`,
       );
 
-      return { baseUrl: `/${frameFolder}`, isFlat: true };
+      const firstFrameContent = await legacyProbe.text();
+
+      return {
+        baseUrl: `/${frameFolder}`,
+        isFlat: true,
+        firstFrameContent,
+      };
     }
   } catch {
     // no legacy frames either
@@ -143,7 +159,6 @@ export default function ASCIIAnimation({
   const preRef = useRef<HTMLPreElement>(null);
   const frameCounterRef = useRef<HTMLDivElement>(null);
   const [scale, setScale] = useState(1);
-  const [scaled, setScaled] = useState(false);
 
   // Direct DOM refs for animation — bypasses React re-renders
   const currentFrameRef = useRef(0);
@@ -253,18 +268,8 @@ export default function ASCIIAnimation({
 
       resolvedSource.current = source;
 
-      // Fetch only the first frame as a preview
-      try {
-        const response = await fetch(`${source.baseUrl}/${frameFiles[0]}`);
-
-        if (!response.ok) throw new Error(`Failed to fetch preview frame`);
-        const firstFrame = await response.text();
-
-        setFrames([firstFrame]);
-        currentFrameRef.current = 0;
-      } catch (error) {
-        console.error("Failed to load preview frame:", error);
-      }
+      setFrames([source.firstFrameContent]);
+      currentFrameRef.current = 0;
 
       // If not lazy, immediately load all frames
       if (!lazy) {
@@ -344,9 +349,6 @@ export default function ASCIIAnimation({
       );
 
       setScale(newScale * 0.95);
-
-      // First measurement done — safe to reveal
-      if (!scaled) setScaled(true);
     };
 
     updateScale();
@@ -358,7 +360,7 @@ export default function ASCIIAnimation({
     return () => {
       resizeObserver.disconnect();
     };
-  }, [frames, quality, scaled]);
+  }, [frames, quality]);
 
   if (isLoading && frames.length === 0) {
     return (
@@ -410,8 +412,6 @@ export default function ASCIIAnimation({
         className={`leading-none origin-center ${textSize}`}
         style={{
           transform: `scale(${scale})`,
-          opacity: scaled ? 1 : 0,
-          transition: "opacity 0.5s ease-in",
           ...(gradient
             ? {
                 background: gradient,

@@ -3,8 +3,8 @@ import { lazy, Suspense } from "react";
 import { title, subtitle } from "@/components/primitives";
 import DefaultLayout from "@/layouts/default";
 import { ContactButton } from "@/components/contact-button";
+import ASCIIAnimation from "@/components/ascii";
 
-const ASCIIAnimation = lazy(() => import("@/components/ascii"));
 const Cards = lazy(() => import("@/components/cards"));
 const Pricing = lazy(() => import("@/components/pricing"));
 
@@ -28,20 +28,14 @@ export default function IndexPage() {
       </header>
 
       <div className="w-full flex justify-center shrink-0 h-[25vh] md:h-[35vh] lg:h-[40vh]">
-        <Suspense
-          fallback={
-            <div className="w-full h-full animate-pulse rounded-lg bg-default-100" />
-          }
-        >
-          <ASCIIAnimation
-            className="w-full h-full"
-            fps={20}
-            frameCount={300}
-            frameFolder="animation/planet"
-            lazy={true}
-            quality="high"
-          />
-        </Suspense>
+        <ASCIIAnimation
+          className="w-full h-full"
+          fps={20}
+          frameCount={300}
+          frameFolder="animation/planet"
+          lazy={true}
+          quality="high"
+        />
       </div>
 
       <Suspense
