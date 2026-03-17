@@ -11,8 +11,6 @@
   },
   "dependencies": {
     "@emailjs/browser": "^4.4.1",
-    "@react-aria/visually-hidden": "^3.8.30",
-    "@react-types/shared": "^3.33.0",
     "clsx": "^2.1.1",
     "framer-motion": "^12.34.3",
     "lucide-react": "^0.575.0",

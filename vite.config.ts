@@ -53,12 +53,6 @@ function cssOptimizationPlugin(): Plugin {
           },
         );
 
-        // Add loadCSS polyfill for browsers that don't support onload on link tags
-        const polyfill = `<script>!function(e){"use strict";var t=function(t,n,r){var o,i=e.document,a=i.createElement("link");if(n)o=n;else{var l=(i.body||i.getElementsByTagName("head")[0]).childNodes;o=l[l.length-1]}var d=i.styleSheets;a.rel="stylesheet",a.href=t,a.media="only x",function e(t){if(i.body)return t();setTimeout(function(){e(t)})}(function(){o.parentNode.insertBefore(a,n?o:o.nextSibling)});var f=function(e){for(var t=a.href,n=d.length;n--;)if(d[n].href===t)return e();setTimeout(function(){f(e)})};return a.addEventListener&&a.addEventListener("load",function(){this.media=r||"all"}),a.onloadcssdefined=f,f(function(){a.media!==r&&(a.media=r||"all")}),a};"undefined"!=typeof exports?exports.loadCSS=t:e.loadCSS=t}("undefined"!=typeof global?global:this);</script>`;
-
-        // Insert polyfill before closing head
-        html = html.replace("</head>", `    ${polyfill}\n  </head>`);
-
         return html;
       },
     },
@@ -80,18 +74,13 @@ export default defineConfig({
       output: {
         manualChunks: (id) => {
           if (!id.includes("node_modules")) return;
-          // Keep React (and react-dom) in main bundle for immediate availability
-          if (
-            id.includes("react") &&
-            !id.includes("react-aria") &&
-            !id.includes("react-types")
-          ) {
+          if (id.includes("react-router")) return "vendor";
+          if (id.includes("/react/") || id.includes("/react-dom/") || id.includes("/scheduler/")) {
             return; // main bundle
           }
           if (id.includes("framer-motion")) return "vendor-motion";
           if (id.includes("lucide-react")) return "vendor-icons";
 
-          // All other node_modules (including react-router) in one chunk to avoid circular refs
           return "vendor";
         },
         // Optimize chunk file names

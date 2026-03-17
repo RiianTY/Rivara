@@ -1,5 +1,4 @@
 import { FC, useState, useEffect } from "react";
-import { VisuallyHidden } from "@react-aria/visually-hidden";
 import clsx from "clsx";
 import { useTheme } from "next-themes";
 
@@ -44,7 +43,7 @@ export const ThemeSwitch: FC<ThemeSwitchProps> = ({
       type="button"
       onClick={handleToggle}
     >
-      <VisuallyHidden>
+      <span className="sr-only">
         <input
           aria-label={
             isSelected ? "Switch to dark mode" : "Switch to light mode"
@@ -53,7 +52,7 @@ export const ThemeSwitch: FC<ThemeSwitchProps> = ({
           type="checkbox"
           onChange={handleToggle}
         />
-      </VisuallyHidden>
+      </span>
       <div
         className={clsx(
           [
